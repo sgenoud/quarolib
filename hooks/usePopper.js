@@ -1,3 +1,4 @@
+// This hook is heavily insprired from https://github.com/FezVrasta/react-popper
 import { useState, useEffect, useRef } from "react";
 import isEqual from "lodash/isEqual";
 import PopperJS from "popper.js";
