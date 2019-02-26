@@ -22,3 +22,6 @@ welcome.
   called when a user clicks outside a list of targets. What is different about
   this implementation is that you can define an array of nodes that are
   considered the "inside".
+
+- `hooks/useMousetrap.jsx`: hooks to bind to a mousetrap instance (for simple
+  keyboard shortcuts creation.)
