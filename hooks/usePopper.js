@@ -1,7 +1,7 @@
 // This hook is heavily insprired from https://github.com/FezVrasta/react-popper
-import { useState, useEffect, useRef } from "react";
-import isEqual from "lodash/isEqual";
-import PopperJS from "popper.js";
+import { useState, useEffect, useRef } from 'react';
+import isEqual from 'lodash/isEqual';
+import PopperJS from 'popper.js';
 
 const useDiffedState = initVal => {
   const [storedValue, setStoredValue] = useState(initVal);
@@ -22,23 +22,18 @@ const initialMod = {};
 
 const usePopperState = placement => {
   const [currentStyles, setStyles] = useDiffedState({
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     left: 0,
     opacity: 0,
-    pointerEvents: "none"
+    pointerEvents: 'none',
   });
   const [currentArrowStyles, setArrowStyles] = useDiffedState({});
   const [currentOutOfBoundaries, setOutOfBoundaries] = useState(false);
   const [currentPlacement, setPlacement] = useState(placement);
 
   const updatePopperState = updatedData => {
-    const {
-      styles,
-      arrowStyles,
-      hide,
-      placement: updatedPlacement
-    } = updatedData;
+    const { styles, arrowStyles, hide, placement: updatedPlacement } = updatedData;
 
     setStyles(styles);
     setArrowStyles(arrowStyles);
@@ -51,7 +46,7 @@ const usePopperState = placement => {
     styles: currentStyles,
     placement: currentPlacement,
     outOfBoundaries: currentOutOfBoundaries,
-    arrowStyles: currentArrowStyles
+    arrowStyles: currentArrowStyles,
   };
 
   return [popperStyles, updatePopperState];
@@ -61,10 +56,10 @@ export default ({
   referrenceRef,
   popperRef,
   arrowRef,
-  placement = "bottom",
+  placement = 'bottom',
   eventsEnabled = true,
   positionFixed = false,
-  modifiers = initialMod
+  modifiers = initialMod,
 }) => {
   const [popperStyles, updatePopperState] = usePopperState(placement);
   const popperInstance = useRef();
@@ -77,36 +72,26 @@ export default ({
         popperInstance.current = null;
       }
 
-      if (
-        !referrenceRef ||
-        !referrenceRef.current ||
-        !popperRef ||
-        !popperRef.current
-      )
-        return;
+      if (!referrenceRef || !referrenceRef.current || !popperRef || !popperRef.current) return;
 
-      popperInstance.current = new PopperJS(
-        referrenceRef.current,
-        popperRef.current,
-        {
-          placement,
-          positionFixed,
-          modifiers: {
-            ...modifiers,
-            arrow: {
-              ...(modifiers && modifiers.arrow),
-              enabled: !!arrowRef,
-              element: arrowRef && arrowRef.current
-            },
-            applyStyle: { enabled: false },
-            updateStateModifier: {
-              enabled: true,
-              order: 900,
-              fn: updatePopperState
-            }
-          }
-        }
-      );
+      popperInstance.current = new PopperJS(referrenceRef.current, popperRef.current, {
+        placement,
+        positionFixed,
+        modifiers: {
+          ...modifiers,
+          arrow: {
+            ...(modifiers && modifiers.arrow),
+            enabled: !!arrowRef,
+            element: arrowRef && arrowRef.current,
+          },
+          applyStyle: { enabled: false },
+          updateStateModifier: {
+            enabled: true,
+            order: 900,
+            fn: updatePopperState,
+          },
+        },
+      });
 
       // eslint-disable-next-line consistent-return
       return () => {
@@ -120,7 +105,7 @@ export default ({
       popperRef.current,
       placement,
       positionFixed,
-      modifiers
+      modifiers,
     ]
   );
 

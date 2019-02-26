@@ -1,11 +1,11 @@
-import styled, { css } from "styled-components/macro";
-import { triangle } from "polished";
+import styled, { css } from 'styled-components/macro';
+import { triangle } from 'polished';
 
 const moveDirection = {
-  top: "left",
-  bottom: "left",
-  left: "top",
-  right: "top"
+  top: 'left',
+  bottom: 'left',
+  left: 'top',
+  right: 'top',
 };
 const widthFactor = { top: 2, bottom: 2, left: 1, right: 1 };
 const heightFactor = { top: 1, bottom: 1, left: 2, right: 2 };
@@ -14,7 +14,7 @@ const coloredArrow = (direction, size, color_) => css`
     pointingDirection: direction,
     width: `${size * widthFactor[direction]}px`,
     height: `${size * heightFactor[direction]}px`,
-    foregroundColor: color_
+    foregroundColor: color_,
   })}
 
   margin-top: 0;
@@ -22,33 +22,33 @@ const coloredArrow = (direction, size, color_) => css`
   ${moveDirection[direction]}: calc(50% - ${size}px);
 `;
 
-export const orientedArrow = ({ size = 5, arrowColor = "inherit" }) => css`
-  [data-placement^="top"] & {
-    ${coloredArrow("bottom", size, arrowColor)};
+export const orientedArrow = ({ size = 5, arrowColor = 'inherit' }) => css`
+  [data-placement^='top'] & {
+    ${coloredArrow('bottom', size, arrowColor)};
     bottom: ${-size}px;
   }
 
-  [data-placement^="bottom"] & {
-    ${coloredArrow("top", size, arrowColor)};
+  [data-placement^='bottom'] & {
+    ${coloredArrow('top', size, arrowColor)};
     top: ${-size}px;
   }
 
-  [data-placement^="right"] & {
-    ${coloredArrow("left", size, arrowColor)};
+  [data-placement^='right'] & {
+    ${coloredArrow('left', size, arrowColor)};
     left: ${-size}px;
   }
 
-  [data-placement^="left"] & {
-    ${coloredArrow("right", size, arrowColor)};
+  [data-placement^='left'] & {
+    ${coloredArrow('right', size, arrowColor)};
     right: ${-size}px;
   }
 `;
 
 export const orientedArrowWithBorder = ({
   size = 5,
-  arrowColor = "white",
-  borderColor = "inherit",
-  borderWidth = 1
+  arrowColor = 'white',
+  borderColor = 'inherit',
+  borderWidth = 1,
 }) => css`
   &,
   &:after {
@@ -58,65 +58,59 @@ export const orientedArrowWithBorder = ({
     position: absolute;
   }
 
-  [data-placement^="top"] & {
-    ${coloredArrow("bottom", size + borderWidth, borderColor)};
+  [data-placement^='top'] & {
+    ${coloredArrow('bottom', size + borderWidth, borderColor)};
     bottom: ${-size - borderWidth}px;
   }
 
-  [data-placement^="bottom"] & {
-    ${coloredArrow("top", size + borderWidth, borderColor)};
+  [data-placement^='bottom'] & {
+    ${coloredArrow('top', size + borderWidth, borderColor)};
     top: ${-size - borderWidth}px;
   }
 
-  [data-placement^="right"] & {
-    ${coloredArrow("left", size + borderWidth, borderColor)};
+  [data-placement^='right'] & {
+    ${coloredArrow('left', size + borderWidth, borderColor)};
     left: ${-size - borderWidth}px;
   }
 
-  [data-placement^="left"] & {
-    ${coloredArrow("right", size + borderWidth, borderColor)};
+  [data-placement^='left'] & {
+    ${coloredArrow('right', size + borderWidth, borderColor)};
     right: ${-size - borderWidth}px;
   }
 
   &:after {
-    content: "";
+    content: '';
   }
 
-  [data-placement^="top"] &:after {
-    ${coloredArrow("bottom", size, arrowColor)};
+  [data-placement^='top'] &:after {
+    ${coloredArrow('bottom', size, arrowColor)};
     bottom: ${borderWidth}px;
   }
 
-  [data-placement^="bottom"] &:after {
-    ${coloredArrow("top", size, arrowColor)};
+  [data-placement^='bottom'] &:after {
+    ${coloredArrow('top', size, arrowColor)};
     top: ${borderWidth}px;
   }
 
-  [data-placement^="right"] &:after {
-    ${coloredArrow("left", size, arrowColor)};
+  [data-placement^='right'] &:after {
+    ${coloredArrow('left', size, arrowColor)};
     left: ${borderWidth}px;
   }
 
-  [data-placement^="left"] &:after {
-    ${coloredArrow("right", size, arrowColor)};
+  [data-placement^='left'] &:after {
+    ${coloredArrow('right', size, arrowColor)};
     right: ${borderWidth}px;
   }
 `;
 
-export const TooltipHead = styled.div`
-  margin-bottom: 5px;
-  font-style: italic;
-  white-space: nowrap;
-`;
-
 const directionMapping = {
-  left: "right",
-  right: "left",
-  top: "bottom",
-  bottom: "top"
+  left: 'right',
+  right: 'left',
+  top: 'bottom',
+  bottom: 'top',
 };
-const marginDirection = ({ "data-placement": placement }) =>
-  directionMapping[placement && placement.split("-")[0]];
+const marginDirection = ({ 'data-placement': placement }) =>
+  directionMapping[placement && placement.split('-')[0]];
 
 export const Tooltip = styled.div`
   background-color: white;
