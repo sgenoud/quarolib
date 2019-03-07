@@ -25,3 +25,6 @@ welcome.
 
 - `hooks/useMousetrap.jsx`: hooks to bind to a mousetrap instance (for simple
   keyboard shortcuts creation.)
+
+- `hooks/useToggle.jsx`: store and offer the base options to change the state
+  of a boolean (on, off, toggle).
