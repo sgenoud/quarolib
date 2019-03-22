@@ -53,9 +53,9 @@ const usePopperState = placement => {
 };
 
 export default ({
-  referrenceRef,
-  popperRef,
-  arrowRef,
+  referrenceNode,
+  popperNode,
+  arrowNode,
   placement = 'bottom',
   eventsEnabled = true,
   positionFixed = false,
@@ -72,17 +72,17 @@ export default ({
         popperInstance.current = null;
       }
 
-      if (!referrenceRef || !referrenceRef.current || !popperRef || !popperRef.current) return;
+      if (!referrenceNode || !popperNode) return;
 
-      popperInstance.current = new PopperJS(referrenceRef.current, popperRef.current, {
+      popperInstance.current = new PopperJS(referrenceNode, popperNode, {
         placement,
         positionFixed,
         modifiers: {
           ...modifiers,
           arrow: {
             ...(modifiers && modifiers.arrow),
-            enabled: !!arrowRef,
-            element: arrowRef && arrowRef.current,
+            enabled: !!arrowNode,
+            element: arrowNode && arrowNode,
           },
           applyStyle: { enabled: false },
           updateStateModifier: {
@@ -99,14 +99,7 @@ export default ({
         popperInstance.current = null;
       };
     },
-    [
-      arrowRef.current,
-      referrenceRef.current,
-      popperRef.current,
-      placement,
-      positionFixed,
-      modifiers,
-    ]
+    [arrowNode, referrenceNode, popperNode, placement, positionFixed, modifiers]
   );
 
   useEffect(
@@ -122,7 +115,9 @@ export default ({
   );
 
   useEffect(() => {
-    popperInstance.current.scheduleUpdate();
+    if (popperInstance.current) {
+      popperInstance.current.scheduleUpdate();
+    }
   });
 
   return popperStyles;

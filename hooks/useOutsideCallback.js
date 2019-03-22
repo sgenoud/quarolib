@@ -28,11 +28,12 @@ export default (inputNodes, handler, events = EVENTS) => {
       }
 
       const listener = event => {
-        const isEventInside = node => {
-          if (!node || !node.current || !handlerRef.current) {
+        const isEventInside = nodeOrRef => {
+          const node = nodeOrRef.current || nodeOrRef;
+          if (!node || !handlerRef.current) {
             return false;
           }
-          return node.current.contains(event.target);
+          return node.contains(event.target);
         };
 
         // The event needs to be outside all the nodes to call the handler
