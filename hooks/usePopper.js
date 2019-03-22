@@ -82,7 +82,7 @@ export default ({
           arrow: {
             ...(modifiers && modifiers.arrow),
             enabled: !!arrowNode,
-            element: arrowNode && arrowNode,
+            element: arrowNode,
           },
           applyStyle: { enabled: false },
           updateStateModifier: {
