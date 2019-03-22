@@ -18,10 +18,6 @@ welcome.
 
 ##### Hooks for simple, well defined, tasks
 
-- `hooks/useNodeRef.js`: gets a reference to a DOM node and makes sure the
-  reference is updated if the DOM node changes. This is important for
-  situations described in the [React FAQ](https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node)
-
 - `hooks/useOutsideCallback.js`: hooks to defined a callback that will be
   called when a user clicks outside a list of targets. What is different about
   this implementation is that you can define an array of nodes that are
