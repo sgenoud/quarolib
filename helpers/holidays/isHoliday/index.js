@@ -1,6 +1,6 @@
-import { vd } from '../locale/ch';
+import ch from '../locale/ch';
 
 export default (date, options) => {
-  const { locale = defaultLocale } = options;
+  const { locale = ch.vd } = options;
   return locale.holidays.some(({ match }) => match(date));
 };

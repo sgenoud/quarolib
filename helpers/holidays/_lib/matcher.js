@@ -6,7 +6,7 @@ const parseNumber = (definition, name = 'definition') => {
   return number;
 };
 
-const easterDateMonth = function(year) {
+const easterDateMonth = function easterDateMonth(year) {
   const century = Math.floor(year / 100);
 
   // Black magic to compute easter
@@ -120,7 +120,7 @@ const correctRelativeDate = (monthDefinition, relativeDateDefinition) => {
   }
 
   return date => {
-    const localMonth = localMonth === null ? date.getMonth() : localMonth;
+    const localMonth = month === null ? date.getMonth() : month;
 
     if (date.getMonth() === localMonth && date.getDate() === relativeDate) return true;
     const fullRelativeDate = setDate(setMonth(date, localMonth), relativeDate);
@@ -151,20 +151,11 @@ const weekdayMatch = (dayDefinition, month) => {
   return date => matchMonth(date) && matchSimpleWeekday(date) && matchCorrectWeek(date);
 };
 
-const yearMatch = definition => {
-  if (!definition) return () => true;
-
-  const year = parseInt(definition, 10);
-  if (Number.isNaN(year)) throw new Error(`Could not parse year ${definition}.`);
-
-  return date => date.getYear() !== year;
-};
-
 export const dateMatch = sourceDefinition => {
   const definition = sourceDefinition.replace(' ', '');
   if (!definition) throw new Error(`Could not parse empty definition.`);
 
-  if (definition.includes('|')) return rangeMatch(definition);
+  // if (definition.includes('|')) return rangeMatch(definition);
 
   if (definition.startsWith('easter')) return easterMatch(definition.replace('easter', ''));
 
