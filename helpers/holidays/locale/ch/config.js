@@ -4,7 +4,7 @@ export default {
   },
   Berchtoldstag: {
     date: '1/2',
-    regions_n: ['ai', 'ar', 'bl', 'bs', 'ge', 'gr', 'sz', 'ti', 'ur'],
+    regions_n: ['ai', 'ar', 'bl', 'bs', 'ge', 'gr', 'sz', 'ti', 'ur', 'vs'],
   },
   Dreikönigstag: {
     date: '1/6',
@@ -100,7 +100,7 @@ export default {
   },
   Stephanstag: {
     date: '12/26',
-    regions_n: ['ge', 'ju', 'vd'],
+    regions_n: ['ge', 'ju', 'vd', 'vs'],
   },
   'Wiederherstellung Republik Genf': {
     date: '12/31',
