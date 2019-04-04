@@ -1,3 +1,4 @@
+/* global expect describe it */
 import isHoliday from './index';
 
 import ch from '../locale/ch';
@@ -11,6 +12,9 @@ describe('testing the isHoliday function', () => {
     expect(isHoliday(new Date(2019, 3, 20), { locale: ch.vd })).toBeFalsy();
     expect(isHoliday(new Date(2019, 3, 20), { locale: fr })).toBeFalsy();
     expect(isHoliday(new Date(2009, 11, 25), { locale: ch.vd })).toBeTruthy();
+
+    expect(isHoliday(new Date(2019, 8, 16), { locale: ch.vd })).toBeTruthy();
+    expect(isHoliday(new Date(2019, 8, 16), { locale: ch.fr })).toBeFalsy();
   });
 
   it('correctly finds holidays depending on region', () => {

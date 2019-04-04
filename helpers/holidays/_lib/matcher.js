@@ -72,7 +72,9 @@ const simpleWeekdayMatch = definition => {
 
   const weekday = parseNumber(definition, 'weekday');
 
-  return date => date.getDay() === weekday;
+  return date => {
+    return date.getDay() === weekday;
+  };
 };
 
 const correctWeek = (monthDefinition, weekInMonthDefinition) => {
@@ -124,7 +126,7 @@ const correctRelativeDate = (monthDefinition, relativeDateDefinition) => {
 
     if (date.getMonth() === localMonth && date.getDate() === relativeDate) return true;
     const fullRelativeDate = setDate(setMonth(date, localMonth), relativeDate);
-    return isAfter(date, fullRelativeDate) && isBefore(date, subWeeks(fullRelativeDate, 1));
+    return isAfter(date, fullRelativeDate) && isBefore(date, addWeeks(fullRelativeDate, 1));
   };
 };
 
@@ -140,10 +142,9 @@ const weekdayMatch = (dayDefinition, month) => {
   const matchSimpleWeekday = simpleWeekdayMatch(weekDay);
 
   if (config.startsWith('[')) {
-    return date =>
-      matchMonth(date) &&
-      matchSimpleWeekday(date) &&
-      correctRelativeDate(month, weekDay, config.slice(1, -1))(date);
+    return date => {
+      return matchSimpleWeekday(date) && correctRelativeDate(month, config.slice(1, -1))(date);
+    };
   }
 
   const matchCorrectWeek = correctWeek(month, config);
