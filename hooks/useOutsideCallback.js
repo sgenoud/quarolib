@@ -29,7 +29,7 @@ export default (inputNodes, handler, events = EVENTS) => {
 
       const listener = event => {
         const isEventInside = nodeOrRef => {
-          const node = nodeOrRef.current || nodeOrRef;
+          const node = nodeOrRef ? nodeOrRef.current || nodeOrRef : nodeOrRef;
           if (!node || !handlerRef.current) {
             return false;
           }
