@@ -34,21 +34,18 @@ export default (key, handler, mousetrap = Mousetrap) => {
 
   useEffect(() => {
     refHandler.current = handler;
-  }, handler);
+  }, [handler]);
 
-  useEffect(
-    () => {
-      if (!mousetrap) return;
-      mousetrap.bind(key, () => {
-        if (!refHandler.current) return;
-        refHandler.current();
-      });
+  useEffect(() => {
+    if (!mousetrap) return;
+    mousetrap.bind(key, () => {
+      if (!refHandler.current) return;
+      refHandler.current();
+    });
 
-      // eslint-disable-next-line consistent-return
-      return () => {
-        mousetrap.unbind(key);
-      };
-    },
-    [key, mousetrap]
-  );
+    // eslint-disable-next-line consistent-return
+    return () => {
+      mousetrap.unbind(key);
+    };
+  }, [key, mousetrap]);
 };

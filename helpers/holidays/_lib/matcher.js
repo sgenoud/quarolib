@@ -13,13 +13,12 @@ const easterDateMonth = function easterDateMonth(year) {
   const n = year - 19 * Math.floor(year / 19);
   const k = Math.floor((century - 17) / 25);
   let i = century - Math.floor(century / 4) - Math.floor((century - k) / 3) + 19 * n + 15;
-  i = i - 30 * Math.floor(i / 30);
-  i =
-    i -
+  i -= 30 * Math.floor(i / 30);
+  i -=
     Math.floor(i / 28) *
-      (1 - Math.floor(i / 28) * Math.floor(29 / (i + 1)) * Math.floor((21 - n) / 11));
+    (1 - Math.floor(i / 28) * Math.floor(29 / (i + 1)) * Math.floor((21 - n) / 11));
   let j = year + Math.floor(year / 4) + i + 2 - century + Math.floor(century / 4);
-  j = j - 7 * Math.floor(j / 7);
+  j -= 7 * Math.floor(j / 7);
   const l = i - j;
 
   const month = 3 + Math.floor((l + 40) / 44);

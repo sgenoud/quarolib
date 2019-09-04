@@ -21,38 +21,35 @@ export default (inputNodes, handler, events = EVENTS) => {
     nodesRef.current = nodes;
   });
 
-  useEffect(
-    () => {
-      if (!handler || !nodes) {
-        return;
-      }
+  useEffect(() => {
+    if (!handlerRef.current || !nodesRef.current) {
+      return;
+    }
 
-      const listener = event => {
-        const isEventInside = nodeOrRef => {
-          const node = nodeOrRef ? nodeOrRef.current || nodeOrRef : nodeOrRef;
-          if (!node || !handlerRef.current) {
-            return false;
-          }
-          return node.contains(event.target);
-        };
-
-        // The event needs to be outside all the nodes to call the handler
-        if (!nodesRef.current.some(isEventInside)) {
-          handlerRef.current(event);
+    const listener = event => {
+      const isEventInside = nodeOrRef => {
+        const node = nodeOrRef ? nodeOrRef.current || nodeOrRef : nodeOrRef;
+        if (!node || !handlerRef.current) {
+          return false;
         }
+        return node.contains(event.target);
       };
 
+      // The event needs to be outside all the nodes to call the handler
+      if (!nodesRef.current.some(isEventInside)) {
+        handlerRef.current(event);
+      }
+    };
+
+    events.forEach(event => {
+      document.addEventListener(event, listener);
+    });
+
+    // eslint-disable-next-line consistent-return
+    return () => {
       events.forEach(event => {
-        document.addEventListener(event, listener);
+        document.removeEventListener(event, listener);
       });
-
-      // eslint-disable-next-line consistent-return
-      return () => {
-        events.forEach(event => {
-          document.removeEventListener(event, listener);
-        });
-      };
-    },
-    [!handler, !nodes]
-  );
+    };
+  }, [events]);
 };
