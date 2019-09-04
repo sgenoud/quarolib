@@ -1,4 +1,3 @@
-/* global document */
 import { useRef, useEffect } from 'react';
 
 const EVENTS = ['click', 'touchstart'];

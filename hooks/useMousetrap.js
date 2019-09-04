@@ -1,4 +1,3 @@
-/* global document */
 import { useEffect, useRef } from 'react';
 import Mousetrap from 'mousetrap'; // this is https://github.com/ccampbell/mousetrap
 

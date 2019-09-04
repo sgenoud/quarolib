@@ -151,6 +151,7 @@ const weekdayMatch = (dayDefinition, month) => {
   return date => matchMonth(date) && matchSimpleWeekday(date) && matchCorrectWeek(date);
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export const dateMatch = sourceDefinition => {
   const definition = sourceDefinition.replace(' ', '');
   if (!definition) throw new Error(`Could not parse empty definition.`);
