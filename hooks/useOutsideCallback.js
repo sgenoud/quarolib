@@ -31,7 +31,10 @@ export default (inputNodes, handler, events = EVENTS) => {
         if (!node || !handlerRef.current) {
           return false;
         }
-        return node.contains(event.target);
+
+        // If the target is outside the body, we cannot know if the click was
+        // outside or not. We assume it was inside.
+        return node.contains(event.target) || !document.body.contains(event.target);
       };
 
       // The event needs to be outside all the nodes to call the handler
