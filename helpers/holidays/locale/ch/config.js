@@ -28,7 +28,6 @@ export default {
   },
   Ostermontag: {
     date: 'easter+1',
-    regions_n: ['ne'],
   },
   'Näfelser Fahrt': {
     date: '4/(4,1)',
@@ -46,7 +45,6 @@ export default {
   },
   Pfingstmontag: {
     date: 'easter+50',
-    regions_n: ['ne'],
   },
   Fronleichnam: {
     date: 'easter+60',
@@ -77,7 +75,7 @@ export default {
   },
   Bettagsmontag: {
     date: '9/(1,[-22])',
-    regions: ['vd'],
+    regions: ['vd', 'ne'],
   },
   Mauritiustag: {
     date: '9/22',
