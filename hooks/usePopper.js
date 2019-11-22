@@ -124,5 +124,8 @@ export default ({
     }
   });
 
-  return popperStyles;
+  return {
+    ...popperStyles,
+    update: popperInstance.current && popperInstance.current.scheduleUpdate,
+  };
 };
