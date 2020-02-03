@@ -48,7 +48,7 @@ export default {
   },
   Fronleichnam: {
     date: 'easter+60',
-    regions_n: ['ar', 'be', 'bl', 'bs', 'ge', 'gl', 'gr', 'sg', 'sh', 'tg', 'vd', 'zh'],
+    regions_n: ['ar', 'be', 'bl', 'bs', 'ge', 'gl', 'gr', 'sg', 'sh', 'tg', 'vd', 'zh', 'ne'],
   },
   'Unabhängigkeitsfest Jura': {
     date: '6/23',
