@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 export default {
   Neujahrstag: {
     date: '1/1',
