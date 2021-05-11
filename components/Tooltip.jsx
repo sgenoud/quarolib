@@ -17,28 +17,26 @@ const coloredArrow = (direction, size, color_) => css`
     foregroundColor: color_,
   })}
 
-  margin-top: 0;
-  margin-bottom: 0;
   ${moveDirection[direction]}: calc(50% - ${size}px);
 `;
 
 export const orientedArrow = ({ size = 5, arrowColor = 'inherit' }) => css`
-  [data-placement^='top'] & {
+  [data-popper-placement^='top'] & {
     ${coloredArrow('bottom', size, arrowColor)};
     bottom: ${-size}px;
   }
 
-  [data-placement^='bottom'] & {
+  [data-popper-placement^='bottom'] & {
     ${coloredArrow('top', size, arrowColor)};
     top: ${-size}px;
   }
 
-  [data-placement^='right'] & {
+  [data-popper-placement^='right'] & {
     ${coloredArrow('left', size, arrowColor)};
     left: ${-size}px;
   }
 
-  [data-placement^='left'] & {
+  [data-popper-placement^='left'] & {
     ${coloredArrow('right', size, arrowColor)};
     right: ${-size}px;
   }
@@ -58,22 +56,22 @@ export const orientedArrowWithBorder = ({
     position: absolute;
   }
 
-  [data-placement^='top'] & {
+  [data-popper-placement^='top'] & {
     ${coloredArrow('bottom', size + borderWidth, borderColor)};
     bottom: ${-size - borderWidth}px;
   }
 
-  [data-placement^='bottom'] & {
+  [data-popper-placement^='bottom'] & {
     ${coloredArrow('top', size + borderWidth, borderColor)};
     top: ${-size - borderWidth}px;
   }
 
-  [data-placement^='right'] & {
+  [data-popper-placement^='right'] & {
     ${coloredArrow('left', size + borderWidth, borderColor)};
     left: ${-size - borderWidth}px;
   }
 
-  [data-placement^='left'] & {
+  [data-popper-placement^='left'] & {
     ${coloredArrow('right', size + borderWidth, borderColor)};
     right: ${-size - borderWidth}px;
   }
@@ -82,35 +80,26 @@ export const orientedArrowWithBorder = ({
     content: '';
   }
 
-  [data-placement^='top'] &:after {
+  [data-popper-placement^='top'] &:after {
     ${coloredArrow('bottom', size, arrowColor)};
     bottom: ${borderWidth}px;
   }
 
-  [data-placement^='bottom'] &:after {
+  [data-popper-placement^='bottom'] &:after {
     ${coloredArrow('top', size, arrowColor)};
     top: ${borderWidth}px;
   }
 
-  [data-placement^='right'] &:after {
+  [data-popper-placement^='right'] &:after {
     ${coloredArrow('left', size, arrowColor)};
     left: ${borderWidth}px;
   }
 
-  [data-placement^='left'] &:after {
+  [data-popper-placement^='left'] &:after {
     ${coloredArrow('right', size, arrowColor)};
     right: ${borderWidth}px;
   }
 `;
-
-const directionMapping = {
-  left: 'right',
-  right: 'left',
-  top: 'bottom',
-  bottom: 'top',
-};
-const marginDirection = ({ 'data-placement': placement }) =>
-  directionMapping[placement && placement.split('-')[0]];
 
 export const Tooltip = styled.div`
   background-color: white;
@@ -118,7 +107,6 @@ export const Tooltip = styled.div`
   max-width: 350px;
   border-radius: 2px;
   padding: 15px;
-  margin-${marginDirection}: 8px;
   z-index: 100000;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
 `;

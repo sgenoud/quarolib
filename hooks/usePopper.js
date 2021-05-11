@@ -1,7 +1,7 @@
 // This hook is heavily insprired from https://github.com/FezVrasta/react-popper
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import isEqual from 'lodash/isEqual';
-import PopperJS from 'popper.js';
+import { createPopper } from '@popperjs/core';
 
 const useDiffedState = initVal => {
   const [storedValue, setStoredValue] = useState(initVal);
@@ -17,28 +17,25 @@ const useDiffedState = initVal => {
   return [storedValue, setValue];
 };
 
-const initialMod = {};
+const initialMod = [];
 
 const usePopperState = placement => {
   const [currentStyles, setStyles] = useDiffedState({
     position: 'absolute',
     top: 0,
     left: 0,
-    opacity: 0,
     pointerEvents: 'none',
   });
   const [currentArrowStyles, setArrowStyles] = useDiffedState({});
-  const [currentOutOfBoundaries, setOutOfBoundaries] = useState(false);
   const [currentPlacement, setPlacement] = useState(placement);
 
   const updatePopperState = useCallback(
     updatedData => {
-      const { styles, arrowStyles, hide, placement: updatedPlacement } = updatedData;
+      const { styles, placement: updatedPlacement } = updatedData;
 
-      setStyles(styles);
-      setArrowStyles(arrowStyles);
+      setStyles(styles.popper);
+      setArrowStyles(styles.arrow);
       setPlacement(updatedPlacement);
-      setOutOfBoundaries(hide);
       return updatedData;
     },
     [setArrowStyles, setStyles]
@@ -47,7 +44,6 @@ const usePopperState = placement => {
   const popperStyles = {
     styles: currentStyles,
     placement: currentPlacement,
-    outOfBoundaries: currentOutOfBoundaries,
     arrowStyles: currentArrowStyles,
   };
 
@@ -59,15 +55,21 @@ export default ({
   popperNode,
   arrowNode,
   placement = 'bottom',
-  eventsEnabled = true,
+  offset = 8,
   positionFixed = false,
   modifiers = initialMod,
 }) => {
   const [popperStyles, updatePopperState] = usePopperState(placement);
   const popperInstance = useRef();
 
-  // manage the popper instance lifecycle
+  const offsetRef = useRef(offset);
   useEffect(() => {
+    offsetRef.current = offset;
+    popperInstance.current && popperInstance.current.update();
+  }, [offset]);
+
+  // manage the popper instance lifecycle
+  useLayoutEffect(() => {
     if (popperInstance.current) {
       popperInstance.current.destroy();
       popperInstance.current = null;
@@ -75,23 +77,38 @@ export default ({
 
     if (!referrenceNode || !popperNode) return;
 
-    popperInstance.current = new PopperJS(referrenceNode, popperNode, {
+    popperInstance.current = createPopper(referrenceNode, popperNode, {
       placement,
-      positionFixed,
-      modifiers: {
+      stragegy: positionFixed ? 'fixed' : 'absolute',
+      modifiers: [
         ...modifiers,
-        arrow: {
-          ...(modifiers && modifiers.arrow),
+        {
+          name: 'offset',
+          options: {
+            offset: () => [0, offsetRef.current],
+          },
+        },
+        {
+          name: 'arrow',
           enabled: !!arrowNode,
-          element: arrowNode,
+          options: {
+            element: arrowNode,
+          },
         },
-        applyStyle: { enabled: false },
-        updateStateModifier: {
+        {
+          name: 'updateState',
           enabled: true,
-          order: 900,
-          fn: updatePopperState,
+          phase: 'write',
+          fn: ({ state }) => {
+            updatePopperState(state);
+          },
+          requires: ['computeStyles', 'arrow'],
         },
-      },
+        {
+          name: 'applyStyles',
+          enabled: false,
+        },
+      ],
     });
 
     // eslint-disable-next-line consistent-return
@@ -109,23 +126,14 @@ export default ({
     updatePopperState,
   ]);
 
-  useEffect(() => {
-    if (!popperInstance.current) return;
-    if (eventsEnabled) {
-      popperInstance.current.enableEventListeners();
-    } else {
-      popperInstance.current.disableEventListeners();
-    }
-  }, [eventsEnabled]);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (popperInstance.current) {
-      popperInstance.current.scheduleUpdate();
+      popperInstance.current.update();
     }
   });
 
   return {
     ...popperStyles,
-    update: popperInstance.current && popperInstance.current.scheduleUpdate,
+    update: popperInstance.current && popperInstance.current.update,
   };
 };
