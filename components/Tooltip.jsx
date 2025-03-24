@@ -104,7 +104,6 @@ export const orientedArrowWithBorder = ({
 export const Tooltip = styled.div`
   background-color: white;
   border: solid 1px rgb(94, 173, 203);
-  max-width: 350px;
   border-radius: 2px;
   padding: 15px;
   z-index: 100000;
